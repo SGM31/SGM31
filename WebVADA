@@ -1,0 +1,106 @@
+Landing Website Page
+demo scrolling action
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sliding Testimonial Section</title>
+<style>
+  .testimonial-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+  }
+  
+  .testimonial-card {
+    width: 300px;
+    height: 200px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 20px;
+    position: absolute;
+    transition: transform 0.5s ease;
+  }
+  
+  .testimonial-card.active {
+    transform: translateX(0);
+  }
+  
+  .testimonial-card.next {
+    transform: translateX(100%);
+  }
+  
+  .testimonial-card.prev {
+    transform: translateX(-100%);
+  }
+  
+  .testimonial-content {
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="testimonial-container">
+  <div class="testimonial-card active">
+    <div class="testimonial-content">
+      <h2>John Doe</h2>
+      <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tristique ultricies justo ut fermentum."</p>
+    </div>
+  </div>
+  
+  <div class="testimonial-card next">
+    <div class="testimonial-content">
+      <h2>Jane Smith</h2>
+      <p>"Vivamus auctor quam et neque convallis, ut gravida purus efficitur. Sed nec urna vel neque hendrerit rutrum."</p>
+    </div>
+  </div>
+  
+  <div class="testimonial-card prev">
+    <div class="testimonial-content">
+      <h2>Emily Johnson</h2>
+      <p>"Fusce ut odio at velit tempus eleifend. Mauris congue feugiat leo, nec posuere dui fermentum ut."</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const cards = document.querySelectorAll('.testimonial-card');
+  let currentCardIndex = 0;
+
+  function showNextCard() {
+    cards[currentCardIndex].classList.remove('active');
+    cards[currentCardIndex].classList.add('prev');
+
+    currentCardIndex = (currentCardIndex + 1) % cards.length;
+
+    cards[currentCardIndex].classList.remove('next');
+    cards[currentCardIndex].classList.add('active');
+
+    setTimeout(() => {
+      cards[currentCardIndex].classList.remove('prev');
+    }, 500);
+  }
+
+  function showPreviousCard() {
+    cards[currentCardIndex].classList.remove('active');
+    cards[currentCardIndex].classList.add('next');
+
+    currentCardIndex = (currentCardIndex - 1 + cards.length) % cards.length;
+
+    cards[currentCardIndex].classList.remove('prev');
+    cards[currentCardIndex].classList.add('active');
+
+    setTimeout(() => {
+      cards[currentCardIndex].classList.remove('next');
+    }, 500);
+  }
+
+  setInterval(showNextCard, 5000); // Change testimonial every 5 seconds
+</script>
+
+</body>
+</html>
